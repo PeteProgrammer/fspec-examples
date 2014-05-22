@@ -24,15 +24,13 @@ let specs =
       ("initial_balance" ++ 500) ==>
       context "account is in balance" [
         it "account dispenses cash" (fun ctx ->
-          ctx |> getSubject |> should (be.equalTo true)
-        )
+          ctx.Subject.Should be.True)
       ]
           
       ("initial_balance" ++ -500) ==>
       context "account is overdrawn" [
         it "the Account does not dispense cash" (fun ctx ->
-          ctx |> getSubject |> should (be.equalTo false)
-        )
+          ctx.Subject.Should be.False)
       ]
     ]
   ]
