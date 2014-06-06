@@ -10,8 +10,8 @@ open TestContextOperations
 type TestContext
   with
     member self.Account 
-      with get() : Account = self.Get "account"
-      and set account = self.Set "account" account
+      with get() : Account = self?account
+      and set account = self?account <- account
 
 let specs =
   describe "Account" [
@@ -25,7 +25,7 @@ let specs =
 
       ("initial_balance" ++ 500) ==>
       context "when account is in balance" [
-        itShould (be.True)
+        itShould be.True
       ]
       
       ("initial_balance" ++ -500) ==>
