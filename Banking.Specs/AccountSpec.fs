@@ -12,23 +12,19 @@ let specs =
     context "when withdrawing cash" [
       context "account is in balance" [
         before (fun ctx -> 
-          let account = ctx |> getSubject<Account>
-          account.Balance <- 500)
+            ctx.GetSubject<Account>().Balance <- 500)
 
         it "account dispenses cash" (fun ctx ->
-          let account = ctx |> getSubject<Account>
-          account.CanWithdraw(60) |> should (be.equalTo true)
+          ctx.GetSubject<Account>().CanWithdraw(60).Should be.True
         )
       ]
           
       context "account is overdrawn" [
         before (fun ctx -> 
-          let account = ctx |> getSubject<Account>
-          account.Balance <- -500)
+            ctx.GetSubject<Account>().Balance <- -500)
 
         it "the Account does not dispense cash" (fun ctx ->
-          let account = ctx |> getSubject<Account>
-          account.CanWithdraw(60) |> should (be.equalTo false)
+          ctx.GetSubject<Account>().CanWithdraw(60).Should be.False
         )
       ]
     ]
